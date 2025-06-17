@@ -1,0 +1,55 @@
+local tool = Instance.new("Tool")
+tool.Name = "german pose"
+tool.RequiresHandle = false
+tool.CanBeDropped = false
+tool.Parent = game.Players.LocalPlayer.Backpack
+
+local comboAnims = {
+    {Id = 164025878, Speed = 0},
+    {Id = 90117804, Speed = 0},
+    {Id = 1119816160, Speed = 0}
+}
+
+local animationTracks = {} -- lưu lại track để dừng sau
+
+tool.Equipped:Connect(function()
+    local plr = game.Players.LocalPlayer
+    local char = plr.Character or plr.CharacterAdded:Wait()
+    local humanoid = char:FindFirstChildOfClass("Humanoid")
+    if not humanoid then return end
+
+    local animator = humanoid:FindFirstChildOfClass("Animator")
+    if not animator then
+        animator = Instance.new("Animator")
+        animator.Parent = humanoid
+    end
+
+    -- Clear track cũ nếu có
+    for _, track in ipairs(animationTracks) do
+        if track and track.IsPlaying then
+            track:Stop()
+        end
+    end
+    animationTracks = {}
+
+    -- Phát combo animation
+    for _, anim in ipairs(comboAnims) do
+        local animation = Instance.new("Animation")
+        animation.AnimationId = "rbxassetid://" .. anim.Id
+        local track = animator:LoadAnimation(animation)
+        track:Play()
+        track:AdjustSpeed(anim.Speed or 1)
+        table.insert(animationTracks, track)
+        task.wait(0.05)
+    end
+end)
+
+tool.Unequipped:Connect(function()
+    -- Khi bỏ Tool, dừng toàn bộ animation đang chạy
+    for _, track in ipairs(animationTracks) do
+        if track and track.IsPlaying then
+            track:Stop()
+        end
+    end
+    animationTracks = {}
+end)
