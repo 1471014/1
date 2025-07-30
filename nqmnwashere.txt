@@ -7,7 +7,7 @@ part.Parent = workspace
 -- Particle Effect Setup
 local particleEmitter = Instance.new("ParticleEmitter")
 particleEmitter.Parent = part
-particleEmitter.Texture = "rbxassetid://123097589895465" -- Replace with your particle texture ID
+particleEmitter.Texture = "rbxassetid://101626672605906" -- Replace with your particle texture ID
 particleEmitter.Lifetime = NumberRange.new(1)
 particleEmitter.Rate = 10
 particleEmitter.Speed = NumberRange.new(5)
@@ -16,7 +16,7 @@ particleEmitter.Speed = NumberRange.new(5)
 local function spamDecals()
     for i = 1, 10 do
         local decal = Instance.new("Decal")
-        decal.Texture = "rbxassetid://123097589895465" -- Replace with your decal ID
+        decal.Texture = "rbxassetid://101626672605906" -- Replace with your decal ID
         decal.Parent = part
         wait(0.5) -- Adjust the wait time as needed
     end
@@ -24,12 +24,12 @@ end
 
 -- Skybox Setup
 local skybox = Instance.new("Sky")
-skybox.SkyboxBk = "rbxassetid://123097589895465" -- Replace with your skybox ID
-skybox.SkyboxDn = "rbxassetid://123097589895465"
-skybox.SkyboxFt = "rbxassetid://123097589895465"
-skybox.SkyboxLf = "rbxassetid://123097589895465"
-skybox.SkyboxRt = "rbxassetid://123097589895465"
-skybox.SkyboxUp = "rbxassetid://123097589895465"
+skybox.SkyboxBk = "rbxassetid://101626672605906" -- Replace with your skybox ID
+skybox.SkyboxDn = "rbxassetid://101626672605906"
+skybox.SkyboxFt = "rbxassetid://101626672605906"
+skybox.SkyboxLf = "rbxassetid://101626672605906"
+skybox.SkyboxRt = "rbxassetid://101626672605906"
+skybox.SkyboxUp = "rbxassetid://101626672605906"
 skybox.Parent = game.Lighting
 
 -- Execute the decal spammer
@@ -65,7 +65,7 @@ local function triggerJumpscare()
     jumpscareSound:Play()
 
     local jumpscareImage = Instance.new("ImageLabel")
-    jumpscareImage.Image = "rbxassetid://123097589895465" -- Replace with your jumpscare image ID
+    jumpscareImage.Image = "rbxassetid://101626672605906" -- Replace with your jumpscare image ID
     jumpscareImage.Size = UDim2.new(1, 0, 1, 0)
     jumpscareImage.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
     
