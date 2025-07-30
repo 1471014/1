@@ -1,0 +1,115 @@
+local part = Instance.new("Part")
+part.Size = Vector3.new(5, 5, 5)
+part.Position = Vector3.new(0, 5, 0)
+part.Parent = workspace
+
+
+local particleEmitter = Instance.new("ParticleEmitter")
+particleEmitter.Parent = part
+particleEmitter.Texture = "rbxassetid://101626672605906" -- Replace with your particle texture ID
+particleEmitter.Lifetime = NumberRange.new(1)
+particleEmitter.Rate = 10
+particleEmitter.Speed = NumberRange.new(5)
+
+
+local function spamDecals()
+    for i = 1, 10 do
+        local decal = Instance.new("Decal")
+        decal.Texture = "rbxassetid://101626672605906" -- Replace with your decal ID
+        decal.Parent = part
+        wait(0.5) -- Adjust the wait time as needed
+    end
+end
+
+
+local skybox = Instance.new("Sky")
+skybox.SkyboxBk = "rbxassetid://101626672605906" -- Replace with your skybox ID
+skybox.SkyboxDn = "rbxassetid://101626672605906"
+skybox.SkyboxFt = "rbxassetid://101626672605906"
+skybox.SkyboxLf = "rbxassetid://101626672605906"
+skybox.SkyboxRt = "rbxassetid://101626672605906"
+skybox.SkyboxUp = "rbxassetid://101626672605906"
+skybox.Parent = game.Lighting
+
+
+spamDecals()
+
+
+local playerLeaderstats = {}
+for i, v in pairs(game.Players:GetChildren()) do
+table.insert(playerLeaderstats, v)
+end
+for i, v in pairs(playerLeaderstats) do
+pe = Instance.new("ParticleEmitter",v.Character.Torso)
+pe.Texture = "http://www.roblox.com/asset/?id=101626672605906"
+pe.VelocitySpread = 50
+se = Instance.new("ParticleEmitter",v.Character.Torso)
+se.Texture = "http://www.roblox.com/asset/?id=101626672605906"
+se.VelocitySpread = 50
+fe = Instance.new("ParticleEmitter",v.Character.Torso)
+fe.Texture = "http://www.roblox.com/asset/?id=101626672605906"
+fe.VelocitySpread = 50
+end
+
+
+local sound1 = Instance.new("Sound")
+sound1.SoundId = "rbxassetid://6070263388" -- Replace with your first sound ID
+sound1.Looped = true -- Enable looping
+sound1.Parent = game.Workspace
+
+local sound2 = Instance.new("Sound")
+sound2.SoundId = "rbxassetid://7363412529" -- Replace with your second sound ID
+sound2.Looped = true -- Enable looping
+sound2.Parent = game.Workspace
+
+local currentSound = sound1
+
+local function changeMusic()
+    if currentSound.IsPlaying then
+        currentSound:Stop() -- Stop the current sound before changing
+    end
+    
+    currentSound = (currentSound == sound1) and sound2 or sound1
+    currentSound:Play()
+end
+
+
+local function triggerJumpscare()
+    local jumpscareSound = Instance.new("Sound")
+    jumpscareSound.SoundId = "rbxassetid://8884864842" -- Replace with your jumpscare sound ID
+    jumpscareSound.Parent = game.Workspace
+    jumpscareSound:Play()
+
+    local jumpscareImage = Instance.new("ImageLabel")
+    jumpscareImage.Image = "rbxassetid://101626672605906" -- Replace with your jumpscare image ID
+    jumpscareImage.Size = UDim2.new(1, 0, 1, 0)
+    jumpscareImage.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    
+    wait(2) -- Duration of the jumpscare
+    jumpscareImage:Destroy() -- Remove the jumpscare image after display
+end
+
+
+local function onPlayerLeave(player)
+    if player.UserId == 666 then -- Check if the player is the guest with ID 666
+        player:LoadCharacter() -- Reload the character to prevent leaving
+        -- Optionally, change the map or teleport the player
+    end
+end
+
+game.Players.PlayerRemoving:Connect(onPlayerLeave)
+
+-- Bind the function to a key press or a GUI button
+game:GetService("UserInputService").InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.M then -- Press 'M' to change music
+        changeMusic()
+    elseif input.KeyCode == Enum.KeyCode.J then -- Press 'J' to trigger jumpscare
+        triggerJumpscare()
+    end
+end)
+
+
+currentSound:Play()
+
+local h = Instance.new("Hint", workspace)
+h.Text = "N.Q.M.N Was Here. :)"
